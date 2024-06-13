@@ -12,118 +12,77 @@
 
 <body>
     <main>
-        <div style="position:absolute; left:1vw; right:49vw; top:1vh; bottom:30vh;">
-            <div id="musicplayer" style="width:49vw; height:69vh; padding: 0; margin: 0"></div>
-            <p id="status" style="margin:0;">-</p>
-            <input type="range" name="volume" id="musicvolume" min="0" max="100" value="80">
-            <h2 style="margin:0;">Music</h2>
-            <div id="musicurls" style="display:flex; flex-direction: column; gap: 1rem; padding: 0; margin: 0;">
-                <div class="url">
-                    <input type="checkbox" name="enabled" checked="checked">
-                    <input type="url" name="url" value="https://www.youtube.com/watch?v=2F6B9EibJjw"
-                        style="width:30vw;max-width:400px;">
+        <div id="music-container">
+            <div id="music-frame" style="pointer-events: none;"></div>
+            <h2 style="margin: 0.25rem 0 0.5rem 0;">Music</h2>
+            <div id="music-list">
+                <div style="display:flex; flex-direction: row; gap:8px; width: 100%;">
+                    <p style="max-width:60px;">Enabled</p>
+                    <p style="flex-grow: 1;">Video URL</p>
+                    <div style="width: 60px;"></div>
                 </div>
-                <div class="url">
-                    <input type="checkbox" name="enabled" checked="checked">
-                    <input type="url" name="url" value="https://www.youtube.com/watch?v=7JMvn0wfABQ"
-                        style="width:30vw;max-width:400px;">
+                <div id="template-list-item" class="list-item" style="display:none;">
+                    <input type="checkbox" name="enabled" checked="checked" style="width:60px;">
+                    <input type="url" name="url" style="flex-grow: 1;">
+                    <button style="width:60px;">Remove</button>
                 </div>
-                <div class="url">
-                    <input type="checkbox" name="enabled" checked="checked">
-                    <input type="url" name="url" value="https://www.youtube.com/watch?v=FjHGZj2IjBk"
-                        style="width:30vw;max-width:400px;">
-                </div>
-                <div class="url">
-                    <input type="checkbox" name="enabled" checked="checked">
-                    <input type="url" name="url" value="https://www.youtube.com/watch?v=HXUy3EaVmXQ"
-                        style="width:30vw;max-width:400px;">
-                </div>
-                <div class="url">
-                    <input type="checkbox" name="enabled" checked="checked">
-                    <input type="url" name="url" value="https://www.youtube.com/watch?v=ZkiMk2PUZQA"
-                        style="width:30vw;max-width:400px;">
-                </div>
-                <div class="url">
-                    <input type="checkbox" name="enabled" checked="checked">
-                    <input type="url" name="url" value="https://www.youtube.com/watch?v=htnobkrtDoo"
-                        style=" width:30vw;max-width:400px;">
-                </div>
-                <div class="url">
-                    <input type="checkbox" name="enabled" checked="checked">
-                    <input type="url" name="url" value="https://www.youtube.com/watch?v=qj9NFFvJ7o4"
-                        style=" width:30vw;max-width:400px;">
-                </div>
-                <div class="url">
-                    <input type="checkbox" name="enabled" checked="checked">
-                    <input type="url" name="url" value="https://www.youtube.com/watch?v=lTRiuFIWV54"
-                        style=" width:30vw;max-width:400px;">
-                </div>
+                <button id="music-list-add" style="width:60px;">Add</button>
             </div>
-            <input id="musicurladd" type="button" value="+" style="margin-top: 10px;">
         </div>
 
-        <div style="position:absolute; left:51vw; right:1vw; top:1vh; bottom:30vh;">
-            <div id="ambianceplayer" style="width:48vw; height:69vh; padding: 0; margin: 0"></div>
-            <p id="status2" style="margin:0;">
-                The ambiance video plays automatically and loops if needed.<br />
-                When the music video reaches halfway, another ambiance video is randomly picked from the list.<br />
-                When the music video reaches the end, another music video is randomly picked from the list.<br />
-                The volume of both players is controlled automatically for a seamless experience.<br />
+        <div id="controls-container">
+            <h1 style="text-align:center; font-size: 1.5rem;">
+                Background Music Player
+            </h1>
+            <p style="margin-bottom: 1rem; text-align: center; color:gray; font-size: 0.8rem;">
+                Don't interact with the video players directly!
+                Instead, use the interface below.
             </p>
-            <input type="range" name="volume" id="ambiancevolume" min="0" max="100" value="20">
-            <h2 style="margin:0;">Ambiance</h2>
-            <div id="ambianceurls" style="display:flex; flex-direction: column; gap: 1rem; padding: 0; margin: 0;">
-                <div class="url">
-                    <input type="checkbox" name="enabled" checked="checked">
-                    <input type="url" name="url" value="https://www.youtube.com/watch?v=8plwv25NYRo"
-                        style="width:30vw;max-width:400px;">
+
+            <input type="button" id="control-play" value="Play" style="height:2rem; border-radius: 10px;">
+            <input type="button" id="control-next-music" value="Next Music">
+            <input type="button" id="control-next-ambiance" value="Next Ambiance">
+
+            <br />
+
+            <label for="music-volume">Music Volume</label>
+            <input type="range" name="music-volume" id="music-volume" min="0" max="100" value="100">
+
+            <label for="ambiance-volume">Ambiance Volume</label>
+            <input type="range" name="ambiance-volume" id="ambiance-volume" min="0" max="100" value="50">
+
+            <label for="music-max-mins">Music Max Minutes</label>
+            <input type="number" name="music-max-mins" id="music-max-mins" min="1" step="1" value="60"
+                style="max-width:50px">
+
+            <label for="ambiance-max-mins">Ambiance Max Minutes</label>
+            <input type="number" name="ambiance-max-mins" id="ambiance-max-mins" min="1" step="1" value="30"
+                style="max-width:50px">
+
+            <label for="music-fade-secs">Music Transition Seconds</label>
+            <input type="number" name="music-fade-secs" id="music-fade-secs" min="5" step="1" value="60"
+                style="max-width:50px">
+
+            <label for="ambiance-fade-secs">Ambiance Transition Seconds</label>
+            <input type="number" name="ambiance-fade-secs" id="ambiance-fade-secs" min="5" step="1" value="90"
+                style="max-width:50px">
+        </div>
+
+        <div id="ambiance-container">
+            <div id="ambiance-frame" style="pointer-events: none;"></div>
+            <h2 style="margin: 0.25rem 0 0.5rem 0;">Ambiance</h2>
+            <div id="ambiance-list">
+                <div style="display:flex; flex-direction: row; gap:8px; width: 100%;">
+                    <p style="max-width:60px;">Enabled</p>
+                    <p style="flex-grow: 1;">Video URL</p>
+                    <div style="width: 60px;"></div>
                 </div>
-                <div class="url">
-                    <input type="checkbox" name="enabled" checked="checked">
-                    <input type="url" name="url" value="https://www.youtube.com/watch?v=mPZkdNFkNps"
-                        style="width:30vw;max-width:400px;">
-                </div>
-                <div class="url">
-                    <input type="checkbox" name="enabled" checked="checked">
-                    <input type="url" name="url" value="https://www.youtube.com/watch?v=IMV3CHy9uzE"
-                        style="width:30vw;max-width:400px;">
-                </div>
-                <div class="url">
-                    <input type="checkbox" name="enabled" checked="checked">
-                    <input type="url" name="url" value="https://www.youtube.com/watch?v=nDqP7kcr-sc"
-                        style="width:30vw;max-width:400px;">
-                </div>
-                <div class="url">
-                    <input type="checkbox" name="enabled" checked="checked">
-                    <input type="url" name="url" value="https://www.youtube.com/watch?v=RqzGzwTY-6w"
-                        style="width:30vw;max-width:400px;">
-                </div>
-                <div class="url">
-                    <input type="checkbox" name="enabled" checked="checked">
-                    <input type="url" name="url" value="https://www.youtube.com/watch?v=xNN7iTA57jM"
-                        style="width:30vw;max-width:400px;">
-                </div>
-                <div class="url">
-                    <input type="checkbox" name="enabled" checked="checked">
-                    <input type="url" name="url" value="https://www.youtube.com/watch?v=eH-_GMhH-kk"
-                        style="width:30vw;max-width:400px;">
-                </div>
-                <div class="url">
-                    <input type="checkbox" name="enabled" checked="checked">
-                    <input type="url" name="url" value="https://www.youtube.com/watch?v=eH-_GMhH-kk"
-                        style="width:30vw;max-width:400px;">
-                </div>
-                <div class="url">
-                    <input type="checkbox" name="enabled" checked="checked">
-                    <input type="url" name="url" value="https://www.youtube.com/watch?v=CLKvhtS51us"
-                        style="width:30vw;max-width:400px;">
-                </div>
+                <button id="ambiance-list-add" style="width:60px;">Add</button>
             </div>
-            <input id="ambianceurladd" type="button" value="+" style="margin-top: 10px;">
         </div>
     </main>
     <script src="iframe_api.js"></script>
-    <script src="index.js"></script>
+    <script src="index2.js"></script>
 </body>
 
 </html>
