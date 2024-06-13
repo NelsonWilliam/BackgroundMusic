@@ -82,9 +82,22 @@ main {
     width: 100%; 
 }
 
+#music-title,
+#ambiance-title {
+    margin: auto;
+    width: calc(50vw - 100px - 5rem);
+    height: 4.5rem;
+    overflow-y: auto;
+}
+
+small {
+    font-size: 0.75em;
+}
+
+/* 
 @media only screen and (max-width: 800px) {
     main {
         flex-direction: column;
         background-color: magenta;
     }
-}
+} */

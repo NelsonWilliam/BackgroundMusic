@@ -191,6 +191,8 @@ function onPlayersReady() {
     const playBtnNode = document.getElementById("control-play");
     const nextMusicBtnNode = document.getElementById("control-next-music");
     const nextAmbianceBtnNode = document.getElementById("control-next-ambiance");
+    const musicTitleNode = document.getElementById("music-title");
+    const ambianceTitleNode = document.getElementById("ambiance-title");
     musicListNode = document.getElementById("music-list");
     ambianceListNode = document.getElementById("ambiance-list");
     musicFadeSecsNode = document.getElementById("music-fade-secs");
@@ -243,15 +245,20 @@ function onPlayersReady() {
     setInterval(() => {
         nextMusicBtnNode.disabled = musicPlayerState == undefined ? 'disabled' : '';
         nextAmbianceBtnNode.disabled = ambiancePlayerState == undefined ? 'disabled' : '';
-        if (musicPlayerState == 1 || musicPlayerState == 3 || ambiancePlayerState == 1 || ambiancePlayerState == 3)
+        if (musicPlayerState == 1 || musicPlayerState == 3 || ambiancePlayerState == 1 || ambiancePlayerState == 3) {
             playBtnNode.value = "Pause";
+            const musicTitle = musicPlayer.getVideoData().title;
+            const ambianceTitle = ambiancePlayer.getVideoData().title;
+            musicTitleNode.innerHTML = musicTitle ? "<small>Music:</small><br/>" + musicTitle : "<small>Music</small>";
+            ambianceTitleNode.innerHTML = ambianceTitle ? "<small>Ambiance:</small><br/>" + ambianceTitle : "<small>Ambiance</small>";
+        }
         else
             playBtnNode.value = "Play";
 
         musicTargetBrightness = remap(musicIsLoading ? 0 : musicPlayer.getVolume(), 0, 100, 0.1, 1);
         musicBrightness = lerp(musicBrightness, musicTargetBrightness, 0.2);
         musicFrameNode.style.filter = `brightness(${musicBrightness})`;
-        
+
         ambianceTargetBrightness = remap(ambianceIsLoading ? 0 : ambiancePlayer.getVolume(), 0, 100, 0.1, 1);
         ambianceBrightness = lerp(ambianceBrightness, ambianceTargetBrightness, 0.2);
         ambianceFrameNode.style.filter = `brightness(${ambianceBrightness})`;
