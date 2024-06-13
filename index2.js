@@ -228,9 +228,18 @@ function onPlayersReady() {
         addVideoListItem(ambianceListNode, ambianceListAddNode, templateListItemNode, '', true);
     });
 
+    // Constantly update the volume towards our desired targets
+    musicPlayer.setVolume(0);
+    ambiancePlayer.setVolume(0);
+    musicTargetVolume = 0.0;
+    ambianceTargetVolume = 0.0;
+    setInterval(updatePlayerVolumes, 100);
+
     // Update play/pause button according to state of music player
     var musicTargetBrightness = 0.0;
     var musicBrightness = 0.0;
+    var ambianceTargetBrightness = 0.0;
+    var ambianceBrightness = 0.0;
     setInterval(() => {
         nextMusicBtnNode.disabled = musicPlayerState == undefined ? 'disabled' : '';
         nextAmbianceBtnNode.disabled = ambiancePlayerState == undefined ? 'disabled' : '';
@@ -238,18 +247,15 @@ function onPlayersReady() {
             playBtnNode.value = "Pause";
         else
             playBtnNode.value = "Play";
+
         musicTargetBrightness = remap(musicIsLoading ? 0 : musicPlayer.getVolume(), 0, 100, 0.1, 1);
         musicBrightness = lerp(musicBrightness, musicTargetBrightness, 0.2);
         musicFrameNode.style.filter = `brightness(${musicBrightness})`;
-        ambianceFrameNode.style.filter = `brightness(${remap(ambianceIsLoading ? 0 : ambiancePlayer.getVolume(), 0, 100, 0, 1)})`;
+        
+        ambianceTargetBrightness = remap(ambianceIsLoading ? 0 : ambiancePlayer.getVolume(), 0, 100, 0.1, 1);
+        ambianceBrightness = lerp(ambianceBrightness, ambianceTargetBrightness, 0.2);
+        ambianceFrameNode.style.filter = `brightness(${ambianceBrightness})`;
     }, 30);
-
-    // Constantly update the volume towards our desired targets
-    musicPlayer.setVolume(0);
-    ambiancePlayer.setVolume(0);
-    musicTargetVolume = 0.0;
-    ambianceTargetVolume = 0.0;
-    setInterval(updatePlayerVolumes, 100);
 
     // Fade in the website after everything is setup
     document.documentElement.style.animationName = "html-fadein";
