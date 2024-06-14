@@ -6,82 +6,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Background Music Player</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link rel="stylesheet" href="./style.css">
-    <link rel="icon" href="./favicon.ico" type="image/x-icon">
 </head>
 
 <body>
+    <header>
+        <div>
+            <h1>Background Music Player</h1>
+        </div>
+        <div>
+            <button id="pauseall-btn">Pause All</button>
+            <button id="unpauseall-btn">Unpause All</button>
+            <button id="nextall-btn">Advance All</button>
+        </div>
+    </header>
     <main>
-        <div id="music-container">
-            <div id="music-frame" style="pointer-events: none;"></div>
-            <h2 id="music-title">Music</h2>
-            <div id="music-list">
-                <div style="display:flex; flex-direction: row; gap:8px; width: 100%;">
-                    <p style="max-width:60px;">Enabled</p>
-                    <p style="flex-grow: 1;">Video URL</p>
-                    <div style="width: 60px;"></div>
+        <div id="tracks">
+            <div class="track">
+                <div class="track-player">
+                    <div class="track-player-frame"></div>
+                    <div class="track-player-footer">
+                        <h2 name="track-title"></h2>
+                        <button name="next-btn">Advance</button>
+                    </div>
                 </div>
-                <div id="template-list-item" class="list-item" style="display:none;">
-                    <input type="checkbox" name="enabled" checked="checked" style="width:60px;">
-                    <input type="url" name="url" style="flex-grow: 1;">
-                    <button style="width:60px;">Remove</button>
+
+                <div class="track-list">
+                    <div class="track-list-header">
+                        <label name="url">Video URL</label>
+                        <label name="enabled">Enabled</label>
+                        <div name="space"></div>
+                    </div>
+
+                    <div class="track-list-item">
+                        <input type="url" name="url">
+                        <input type="checkbox" name="enabled" checked="checked">
+                        <button name="remove-btn">Remove</button>
+                    </div>
+
+                    <div class="track-list-footer">
+                        <div name="space1"></div>
+                        <div name="space2"></div>
+                        <button name="add-btn">Add</button>
+                    </div>
                 </div>
-                <button id="music-list-add" style="width:60px;">Add</button>
+
+                <div class="track-controls">
+                    <label for="volume">Target Volume</label>
+                    <input type="range" name="volume" min="0" max="100" value="100" style="height:1rem;">
+
+                    <label for="fade">Fade Duration</label>
+                    <select name="fade" style="height:1.25rem;">
+                        <option value="0">None</option>
+                        <option value="5">Short (5s)</option>
+                        <option value="15" selected>Medium (15s)</option>
+                        <option value="30">Long (30s)</option>
+                        <option value="60">Very Long (60s)</option>
+                    </select>
+
+                    <label for="max-minutes">Max Minutes Per Video</label>
+                    <input type="number" name="max-minutes" min="0" value="60" style="width:60px;height:1.25rem;">
+
+                    <label for="random-start">Randomize Start Position</label>
+                    <input type="checkbox" name="random-start" checked="checked" style="width:1rem;height:1.25rem;">
+
+                    <label for="random-order">Randomize Order</label>
+                    <input type="checkbox" name="random-order" checked="checked" style="width:1rem;height:1.25rem;">
+
+                    <div style="flex-grow: 1;"></div>
+                    <button name="remove-track-btn" style="width:65px;margin: 0 0 0 auto;">Remove</button>
+                </div>
             </div>
         </div>
-
-        <div id="controls-container">
-            <h1 style="text-align:center; font-size: 1.5rem;">
-                Background Music Player
-            </h1>
-            <p style="margin-bottom: 1rem; text-align: center; color:gray; font-size: 0.8rem;">
-                Don't interact with the video players directly!
-                Instead, use the interface below.
-            </p>
-
-            <input type="button" id="control-play" value="Play" style="height:2rem; border-radius: 10px;">
-            <input type="button" id="control-next-music" value="Next Music">
-            <input type="button" id="control-next-ambiance" value="Next Ambiance">
-
-            <br />
-
-            <label for="music-volume">Music Volume</label>
-            <input type="range" name="music-volume" id="music-volume" min="0" max="100" value="100">
-
-            <label for="ambiance-volume">Ambiance Volume</label>
-            <input type="range" name="ambiance-volume" id="ambiance-volume" min="0" max="100" value="50">
-
-            <label for="music-max-mins">Music Max Minutes</label>
-            <input type="number" name="music-max-mins" id="music-max-mins" min="1" step="1" value="60"
-                style="max-width:50px">
-
-            <label for="ambiance-max-mins">Ambiance Max Minutes</label>
-            <input type="number" name="ambiance-max-mins" id="ambiance-max-mins" min="1" step="1" value="30"
-                style="max-width:50px">
-
-            <label for="music-fade-secs">Music Transition Seconds</label>
-            <input type="number" name="music-fade-secs" id="music-fade-secs" min="5" step="1" value="60"
-                style="max-width:50px">
-
-            <label for="ambiance-fade-secs">Ambiance Transition Seconds</label>
-            <input type="number" name="ambiance-fade-secs" id="ambiance-fade-secs" min="5" step="1" value="90"
-                style="max-width:50px">
-        </div>
-
-        <div id="ambiance-container">
-            <div id="ambiance-frame" style="pointer-events: none;"></div>
-            <h2 id="ambiance-title">Ambiance</h2>
-            <div id="ambiance-list">
-                <div style="display:flex; flex-direction: row; gap:8px; width: 100%;">
-                    <p style="max-width:60px;">Enabled</p>
-                    <p style="flex-grow: 1;">Video URL</p>
-                    <div style="width: 60px;"></div>
-                </div>
-                <button id="ambiance-list-add" style="width:60px;">Add</button>
-            </div>
+        <div class="tracks-footer">
+            <button id="add-track-btn" style="width:65px;">Add</button>
         </div>
     </main>
-    <script src="iframe_api.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="thirdparty/iframe_api.js"></script>
     <script src="index.js"></script>
 </body>
 
