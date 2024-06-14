@@ -1,0 +1,115 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    color: #eee;
+    background-color: #000;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    /* The animation itself is only added by JS after things are loaded*/
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    /* filter: brightness(0) blur(30px); */
+    /* TODO */
+}
+
+@keyframes darkblurry-fadein {
+    100% {
+        filter: brightness(1) blur(0);
+    }
+}
+
+@keyframes opacity-fadein {
+    100% {
+        filter: opacity(1)
+    }
+}
+
+header {
+    max-height: 5rem;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    background-color: #0C0C0C;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.track {
+    background-color: #111;
+    padding: 1rem 0.5rem 1rem 1rem;
+    border-radius: 1.5rem;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.track-frame {
+    min-width: 240px;
+    width: 355px;
+    height: 200px;
+    background-color: #000;
+    border-radius: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;
+}
+
+.track-controls {
+    display: flex;
+    flex-direction: column;
+    max-width: 150px;
+}
+
+.track-controls label:not(:first-child) {
+    margin-top: 0.5rem;
+}
+
+.track-list {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 0.5rem;
+    max-height: 200px;
+    overflow-y: scroll;
+    padding-right: 1rem;
+}
+
+.track-list-header,
+.track-list-item {
+    display: flex;
+    flex-direction: row;
+}
+
+.track-list-header {
+    text-align: center;
+    font-size: 0.8rem;
+}
+
+.track-list-item {
+    animation-name: opacity-fadein;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    filter: opacity(0);
+}
+
+.track-list-header p[name="enabled"],
+.track-list-item input[name="enabled"] {
+    min-width: 60px;
+}
+
+.track-list-header p[name="url"],
+.track-list-item input[name="url"] {
+    min-width: 200px;
+    flex-grow: 1;
+}
+
+.track-list-header button[name="btn"],
+.track-list-item button[name="btn"] {
+    min-width: 70px;
+}
