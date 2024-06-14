@@ -1,12 +1,9 @@
 # Background Music
 
-This is a very simple website that plays music and ambiance videos at the same time,
-with smooth volume transitions between them. It's a very poorly constructed website,
-made in a few minutes. I know the source code is a mess and that's alright.
+A simple website I made to play multiple background music videos at the same time, with smooth transitions.
 
 # TODO
 
-[ ] Persist settings and playlist
-[ ] Mobile/vertical layout
-[ ] Quick fade out on next music
-[ ] Favicon
+* Persist playlist/settings
+* Mobile/vertical layout
+* Favicon
