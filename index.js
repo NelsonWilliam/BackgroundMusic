@@ -310,6 +310,12 @@ function setupPage() {
             "https://www.youtube.com/watch?v=htnobkrtDoo",
             "https://www.youtube.com/watch?v=qj9NFFvJ7o4",
             "https://www.youtube.com/watch?v=lTRiuFIWV54",
+            "https://www.youtube.com/watch?v=O9CR0_0eE54",
+            "https://www.youtube.com/watch?v=lFcSrYw-ARY",
+            "https://www.youtube.com/watch?v=neV3EPgvZ3g",
+            "https://www.youtube.com/watch?v=rDcYN1THMZY",
+            "https://www.youtube.com/watch?v=J8LVzXIGbv4",
+            "https://www.youtube.com/watch?v=pe48NBlt4cA",
         ],
     });
     addTrack({
